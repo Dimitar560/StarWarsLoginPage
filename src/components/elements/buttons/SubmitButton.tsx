@@ -1,10 +1,23 @@
-import { type ReactNode } from "react";
+import { type MouseEventHandler, type ReactNode } from "react";
 import styles from "./SubmitButton.module.css";
 
 interface IProps {
     children: ReactNode;
+    btnActive: boolean;
+    clickHandler?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function SubmitButton({ children }: IProps) {
-    return <button className={styles.btn}>{children}</button>;
+export default function SubmitButton({ children, btnActive, clickHandler }: IProps) {
+    return (
+        <>
+            {btnActive && (
+                <button className={styles.btn} onClick={clickHandler}>
+                    {children}
+                </button>
+            )}
+            {!btnActive && (
+                <button className={`${styles.btn} ${styles.disabled}`}>{children}</button>
+            )}
+        </>
+    );
 }

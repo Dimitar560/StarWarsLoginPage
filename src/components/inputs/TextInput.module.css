@@ -1,0 +1,17 @@
+.inputWrap {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+}
+
+.inputLabel {
+    margin-left: 15px;
+    margin-bottom: 3px;
+}
+
+.inp {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 0px;
+    outline: none;
+}

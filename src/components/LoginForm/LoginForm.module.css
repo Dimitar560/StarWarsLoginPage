@@ -1,0 +1,10 @@
+.wrap {
+    margin: 300px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    max-height: 500px;
+    background-color: #ffff55;
+    border-radius: 50px;
+}

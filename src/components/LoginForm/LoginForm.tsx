@@ -1,4 +1,5 @@
-import TextInput from "../inputs/TextInput";
+import SubmitButton from "../elements/buttons/SubmitButton";
+import TextInput from "../elements/inputs/TextInput";
 import styles from "./LoginForm.module.css";
 
 export default function LoginForm() {
@@ -17,6 +18,7 @@ export default function LoginForm() {
                 inputType={"password"}
                 defaultText="Start typing..."
             />
+            <SubmitButton>{"Submit"}</SubmitButton>
         </section>
     );
 }

@@ -1,5 +1,5 @@
 .wrap {
-    margin: 300px auto;
+    margin: 200px auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,4 +7,7 @@
     max-height: 500px;
     background-color: #ffff55;
     border-radius: 50px;
+    flex-flow: column wrap;
+    padding: 30px;
+    gap: 20px;
 }

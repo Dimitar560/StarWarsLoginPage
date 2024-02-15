@@ -1,3 +1,4 @@
+import {type ChangeEventHandler } from "react";
 import styles from "./TextInput.module.css";
 
 interface IProps {
@@ -5,9 +6,10 @@ interface IProps {
     defaultText: string;
     inputType: "text" | "password";
     labelText: string;
+    changeHandler: ChangeEventHandler<HTMLInputElement>
 }
 
-export default function TextInput({ inputName, defaultText, inputType, labelText }: IProps) {
+export default function TextInput({ inputName, defaultText, inputType, labelText, changeHandler }: IProps) {
     return (
         <div className={styles.inputWrap}>
             <label className={styles.inputLabel} htmlFor={inputName}>
@@ -18,6 +20,7 @@ export default function TextInput({ inputName, defaultText, inputType, labelText
                 placeholder={defaultText}
                 name={inputName}
                 type={inputType}
+                onChange={changeHandler}
             />
         </div>
     );

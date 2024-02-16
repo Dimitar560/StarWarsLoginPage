@@ -11,6 +11,9 @@ export default function LoginForm() {
 
     const navigate = useNavigate();
 
+    //////////////////////////////////////////////////////
+    // Button validation check
+
     useEffect(() => {
         let activeBtn = false;
 

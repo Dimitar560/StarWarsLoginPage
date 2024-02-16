@@ -1,28 +1,15 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./TablePage.module.css";
-
-interface IResponse {
-    name: string;
-    height: string;
-    mass: string;
-    hair_color: string;
-    skin_color: string;
-    eye_color: string;
-    birth_year: string;
-    gender: string;
-    homeworld: string;
-    films: string[];
-    species: string[];
-    vehicles: string[];
-    starships: string[];
-    created: string;
-    edited: string;
-    url: string;
-}
+import Loading from "../elements/loading/Loading";
+import { type IResponse } from "../types/Response";
+import MobileTable from "./MobileTable/MobileTable";
+import RegularTable from "./RegularTable/RegularTable";
 
 export default function TablePage() {
     const [getData, setGetData] = useState<IResponse[]>([]);
     const [mobileTable, setMobileTable] = useState(false);
+    const [awaitingResponse, setAwaitingResponse] = useState(false);
+    const [badRequest, setBadRequest] = useState(false);
 
     //////////////////////////////////////////////////////
     // Width check
@@ -51,81 +38,35 @@ export default function TablePage() {
     // Data fecth
 
     useEffect(() => {
+        setAwaitingResponse(true);
         fetch("https://swapi.dev/api/people")
             .then((res) => res.json())
-            .then((data) => setGetData(data.results));
+            .then((data) => setGetData(data.results))
+            .catch((err) => err && setBadRequest(true))
+            .finally(() => setAwaitingResponse(false));
     }, []);
 
     return (
         <>
             {/* Regular table */}
 
-            {!mobileTable && (
+            {awaitingResponse && <Loading />}
+
+            {!mobileTable && !awaitingResponse && (
                 <section className={styles.tableWrap}>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Name</td>
-                                <td>Mass</td>
-                                <td>Height</td>
-                                <td>Hair color</td>
-                                <td>Skin color</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {getData?.map((item, i) => {
-                                return (
-                                    <tr key={item.name + i}>
-                                        <td>{item.name}</td>
-                                        <td>{item.mass}</td>
-                                        <td>{item.height}</td>
-                                        <td>{item.hair_color}</td>
-                                        <td>{item.skin_color}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                    {!badRequest && <RegularTable data={getData} />}
+
+                    {badRequest && <h1>Please try again later</h1>}
                 </section>
             )}
 
             {/* Mobile table */}
 
-            {mobileTable && (
+            {mobileTable && !awaitingResponse && (
                 <section className={styles.mobileTableWrap}>
-                    <table>
-                        <tbody>
-                            {getData?.map((item, i) => {
-                                return (
-                                    <Fragment key={item.name + i}>
-                                        <tr>
-                                            <td colSpan={2}>{`Charecter ${i + 1}`}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Name</td>
-                                            <td>{item.name}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mass</td>
-                                            <td>{item.mass}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Height</td>
-                                            <td>{item.height}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hair color</td>
-                                            <td>{item.hair_color}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Skin color</td>
-                                            <td>{item.skin_color}</td>
-                                        </tr>
-                                    </Fragment>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                    {!badRequest && <MobileTable data={getData} />}
+
+                    {badRequest && <h1>Please try again later</h1>}
                 </section>
             )}
         </>

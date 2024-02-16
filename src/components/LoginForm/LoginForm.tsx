@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import SubmitButton from "../elements/buttons/SubmitButton";
 import TextInput from "../elements/inputs/TextInput";
 import styles from "./LoginForm.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [active, setActive] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         let activeBtn = false;
@@ -37,7 +40,7 @@ export default function LoginForm() {
                 defaultText="Start typing..."
                 changeHandler={(e) => setPassword(e.target.value)}
             />
-            <SubmitButton btnActive={active} clickHandler={() => console.log("Click")}>
+            <SubmitButton btnActive={active} clickHandler={() => navigate("/table")}>
                 {"Submit"}
             </SubmitButton>
         </section>

@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { type IResponse } from "../../types/Response";
 
 export default function MobileTable({ data }: { data: IResponse[] }) {

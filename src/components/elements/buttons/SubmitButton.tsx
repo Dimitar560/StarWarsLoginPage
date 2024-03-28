@@ -16,7 +16,7 @@ export default function SubmitButton({ children, btnActive, clickHandler }: IPro
                 </button>
             )}
             {!btnActive && (
-                <button className={`${styles.btn} ${styles.disabled}`}>{children}</button>
+                <button className={`${styles.btn} ${styles.disabled}`} disabled={true}>{children}</button>
             )}
         </>
     );

@@ -7,9 +7,9 @@ export default function MobileTable({ data }: { data: IResponse[] }) {
             <tbody>
                 {data?.map((item, i) => {
                     return (
-                        <Fragment key={item.name + i}>
+                        <div id='mobileTableWrap'>
                             <tr>
-                                <td colSpan={2}>{`Charecter ${i + 1}`}</td>
+                                <td colSpan={2}>{`Character ${i + 1}`}</td>
                             </tr>
                             <tr>
                                 <td>Name</td>
@@ -31,7 +31,7 @@ export default function MobileTable({ data }: { data: IResponse[] }) {
                                 <td>Skin color</td>
                                 <td>{item.skin_color}</td>
                             </tr>
-                        </Fragment>
+                        </div>
                     );
                 })}
             </tbody>

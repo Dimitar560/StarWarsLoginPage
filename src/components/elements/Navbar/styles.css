@@ -1,0 +1,22 @@
+nav{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    background-color: yellow;
+    color: white;
+}
+nav > ul {
+    display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 4rem;
+	font-size: large;
+	font-weight: bold;
+	list-style: none;
+}
+nav > ul > li > a {
+	padding: 1rem;
+	cursor: pointer;
+	text-decoration: none;
+}

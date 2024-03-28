@@ -5,18 +5,18 @@ export default function RegularTable({ data }: { data: IResponse[] }) {
         <table>
             <thead>
                 <tr>
-                    <td>Name</td>
-                    <td>Mass</td>
-                    <td>Height</td>
-                    <td>Hair color</td>
-                    <td>Skin color</td>
+                    <th>Name</th>
+                    <th>Mass</th>
+                    <th>Height</th>
+                    <th>Hair color</th>
+                    <th>Skin color</th>
                 </tr>
             </thead>
             <tbody>
                 {data?.map((item, i) => {
                     return (
                         <tr key={item.name + i}>
-                            <td>{item.name}</td>
+                            <td className="sw-name">{item.name}</td>
                             <td>{item.mass}</td>
                             <td>{item.height}</td>
                             <td>{item.hair_color}</td>

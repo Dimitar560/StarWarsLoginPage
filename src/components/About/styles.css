@@ -1,0 +1,9 @@
+.About{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    height: 100vh;
+    color: yellow;
+}

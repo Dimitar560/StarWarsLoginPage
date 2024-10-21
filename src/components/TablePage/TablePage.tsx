@@ -7,69 +7,71 @@ import RegularTable from "./RegularTable/RegularTable";
 import Navbar from "../elements/Navbar/Navbar";
 
 export default function TablePage() {
-	const [getData, setGetData] = useState<IResponse[]>([]);
-	const [mobileTable, setMobileTable] = useState(false);
-	const [awaitingResponse, setAwaitingResponse] = useState(false);
-	const [badRequest, setBadRequest] = useState(false);
+    const [getData, setGetData] = useState<IResponse[]>([]);
+    const [mobileTable, setMobileTable] = useState(false);
+    const [awaitingResponse, setAwaitingResponse] = useState(false);
+    const [badRequest, setBadRequest] = useState(false);
 
-	//////////////////////////////////////////////////////
-	// Width check
+    console.log("Test push");
 
-	const [width, setWidth] = useState(window.innerWidth);
-	const updateDimensions = () => {
-		setWidth(window.innerWidth);
-	};
-	useEffect(() => {
-		window.addEventListener("resize", updateDimensions);
-		return () => window.removeEventListener("resize", updateDimensions);
-	}, []);
+    //////////////////////////////////////////////////////
+    // Width check
 
-	//////////////////////////////////////////////////////
-	// Mobile table switch
+    const [width, setWidth] = useState(window.innerWidth);
+    const updateDimensions = () => {
+        setWidth(window.innerWidth);
+    };
+    useEffect(() => {
+        window.addEventListener("resize", updateDimensions);
+        return () => window.removeEventListener("resize", updateDimensions);
+    }, []);
 
-	useEffect(() => {
-		if (width < 720) {
-			setMobileTable(true);
-		} else {
-			setMobileTable(false);
-		}
-	}, [width]);
+    //////////////////////////////////////////////////////
+    // Mobile table switch
 
-	//////////////////////////////////////////////////////
-	// Data fecth
+    useEffect(() => {
+        if (width < 720) {
+            setMobileTable(true);
+        } else {
+            setMobileTable(false);
+        }
+    }, [width]);
 
-	useEffect(() => {
-		setAwaitingResponse(true);
-		fetch("https://swapi.dev/api/people")
-			.then((res) => res.json())
-			.then((data) => setGetData(data.results))
-			.catch((err) => err && setBadRequest(true))
-			.finally(() => setAwaitingResponse(false));
-	}, []);
+    //////////////////////////////////////////////////////
+    // Data fecth
 
-	return (
-		<>
-			{/* Regular table */}
-			<Navbar />
-			{awaitingResponse && <Loading />}
+    useEffect(() => {
+        setAwaitingResponse(true);
+        fetch("https://swapi.dev/api/people")
+            .then((res) => res.json())
+            .then((data) => setGetData(data.results))
+            .catch((err) => err && setBadRequest(true))
+            .finally(() => setAwaitingResponse(false));
+    }, []);
 
-			{!mobileTable && !awaitingResponse && (
-				<section className={styles.tableWrap}>
-					{!badRequest && <RegularTable data={getData} />}
+    return (
+        <>
+            {/* Regular table */}
+            <Navbar />
+            {awaitingResponse && <Loading />}
 
-					{badRequest && <h1>Please try again later</h1>}
-				</section>
-			)}
+            {!mobileTable && !awaitingResponse && (
+                <section className={styles.tableWrap}>
+                    {!badRequest && <RegularTable data={getData} />}
 
-			{/* Mobile table */}
+                    {badRequest && <h1>Please try again later</h1>}
+                </section>
+            )}
 
-			{mobileTable && !awaitingResponse && (
-				<section className={styles.mobileTableWrap}>
-					{!badRequest && <MobileTable data={getData} />}
+            {/* Mobile table */}
 
-					{badRequest && <h1>Please try again later</h1>}
-				</section>
-			)}
-		</>
-	);
+            {mobileTable && !awaitingResponse && (
+                <section className={styles.mobileTableWrap}>
+                    {!badRequest && <MobileTable data={getData} />}
+
+                    {badRequest && <h1>Please try again later</h1>}
+                </section>
+            )}
+        </>
+    );
 }
